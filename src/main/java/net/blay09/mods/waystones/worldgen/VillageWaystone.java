@@ -5,6 +5,7 @@ import java.util.Random;
 
 import net.blay09.mods.waystones.Waystones;
 import net.blay09.mods.waystones.block.TileWaystone;
+import net.blay09.mods.waystones.compat.VillageNamesCompat;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
@@ -12,6 +13,7 @@ import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureVillagePieces;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.VillagerRegistry;
 
 public class VillageWaystone {
@@ -77,11 +79,15 @@ public class VillageWaystone {
             // Initialize TileEntity
             TileWaystone tile = (TileWaystone) world.getTileEntity(waystoneX, waystoneY, waystoneZ);
 
-            /*
-             * if (tile != null) {
-             * tile.setWaystoneName("Village Waystone");
-             * }
-             */
+            if (tile != null && !world.isRemote && Loader.isModLoaded("VillageNames")) {
+                // tile.setWaystoneName("Village Waystone");
+
+                String name = VillageNamesCompat.ensureVillageName(world, waystoneX, waystoneY, waystoneZ);
+
+                if (name != null) {
+                    tile.setWaystoneName(name);
+                }
+            }
 
             return true;
         }
