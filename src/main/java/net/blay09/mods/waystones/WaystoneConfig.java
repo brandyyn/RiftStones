@@ -36,6 +36,7 @@ public class WaystoneConfig {
 
     public static boolean showNametag;
     public static boolean enableWorldgen;
+    public static boolean villageNamesCompat;
 
     public static class Categories {
 
@@ -165,6 +166,12 @@ public class WaystoneConfig {
 
         enableWorldgen = config
             .getBoolean("Enable Worldgen", Categories.general, true, "If true, generate a Waystone in each village.");
+
+        villageNamesCompat = config.getBoolean(
+            "Enable Village Names Compat",
+            Categories.general,
+            true,
+            "If true, village Waystones will take their name from Village Names.");
     }
 
     public static void storeServerWaystones(Configuration config, Collection<WaystoneEntry> entries) {
@@ -207,6 +214,7 @@ public class WaystoneConfig {
         config.setSpawnPoint = buf.readBoolean();
         config.showNametag = buf.readBoolean();
         config.enableWorldgen = buf.readBoolean();
+        config.villageNamesCompat = buf.readBoolean();
         return config;
     }
 
@@ -221,6 +229,7 @@ public class WaystoneConfig {
         buf.writeBoolean(setSpawnPoint);
         buf.writeBoolean(showNametag);
         buf.writeBoolean(enableWorldgen);
+        buf.writeBoolean(villageNamesCompat);
     }
 
     public static Configuration getRawConfig() {

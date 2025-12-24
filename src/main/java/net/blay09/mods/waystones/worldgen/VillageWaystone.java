@@ -3,6 +3,7 @@ package net.blay09.mods.waystones.worldgen;
 import java.util.List;
 import java.util.Random;
 
+import net.blay09.mods.waystones.WaystoneConfig;
 import net.blay09.mods.waystones.Waystones;
 import net.blay09.mods.waystones.block.TileWaystone;
 import net.blay09.mods.waystones.compat.VillageNamesCompat;
@@ -79,7 +80,9 @@ public class VillageWaystone {
             // Initialize TileEntity
             TileWaystone tile = (TileWaystone) world.getTileEntity(waystoneX, waystoneY, waystoneZ);
 
-            if (tile != null && !world.isRemote && Loader.isModLoaded("VillageNames")) {
+            if (tile != null && !world.isRemote
+                && WaystoneConfig.villageNamesCompat
+                && Loader.isModLoaded("VillageNames")) {
                 // tile.setWaystoneName("Village Waystone");
 
                 String name = VillageNamesCompat.ensureVillageName(world, waystoneX, waystoneY, waystoneZ);
