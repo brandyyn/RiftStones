@@ -28,3 +28,6 @@ tooltip.waystones:boundTo=Bound to: %s
 tooltip.waystones:none=None
 tooltip.waystones:returnToWaystone=Return to Waystone
 tooltip.waystones:openWaystoneMenu=Open Waystone Menu
+
+key.waystones.closegui=Close Warp GUI
+key.categories.waystones=Waystones-X
