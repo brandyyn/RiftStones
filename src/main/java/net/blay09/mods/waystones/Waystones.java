@@ -5,7 +5,6 @@ import net.blay09.mods.waystones.block.TileWaystone;
 import net.blay09.mods.waystones.item.ItemReturnScroll;
 import net.blay09.mods.waystones.item.ItemWarpStone;
 import net.blay09.mods.waystones.network.NetworkHandler;
-import net.blay09.mods.waystones.varinstances.VarInstanceClient;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -46,8 +45,6 @@ public class Waystones {
     private WaystoneConfig config;
 
     public static final Logger LOG = LogManager.getLogger(MODID);
-
-    public static VarInstanceClient varInstanceClient = new VarInstanceClient();
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {

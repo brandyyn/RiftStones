@@ -5,7 +5,6 @@ import java.util.Iterator;
 import net.blay09.mods.waystones.PlayerWaystoneData;
 import net.blay09.mods.waystones.WaystoneConfig;
 import net.blay09.mods.waystones.WaystoneManager;
-import net.blay09.mods.waystones.Waystones;
 import net.blay09.mods.waystones.block.TileWaystone;
 import net.blay09.mods.waystones.network.NetworkHandler;
 import net.blay09.mods.waystones.network.message.MessageWarpStone;
@@ -17,7 +16,6 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.EnumChatFormatting;
 
-import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 public class GuiWarpStone extends GuiScreen {
@@ -178,14 +176,4 @@ public class GuiWarpStone extends GuiScreen {
         }
     }
 
-    @Override
-    protected void keyTyped(char typedChar, int keyCode) {
-        super.keyTyped(typedChar, keyCode);
-
-        if (keyCode == Waystones.varInstanceClient.closeGuiKey.getKeyCode()
-            && Waystones.varInstanceClient.closeGuiKey.getKeyCode() != Keyboard.KEY_NONE) {
-
-            mc.displayGuiScreen(null);
-        }
-    }
 }

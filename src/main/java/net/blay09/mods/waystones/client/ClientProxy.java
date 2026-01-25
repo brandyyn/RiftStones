@@ -35,7 +35,6 @@ import com.google.common.collect.Lists;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
@@ -51,11 +50,6 @@ public class ClientProxy extends CommonProxy {
 
         ClientRegistry.bindTileEntitySpecialRenderer(TileWaystone.class, new RenderWaystone());
         RenderingRegistry.registerBlockHandler(WaystoneBlockRenderer.RENDER_ID, new WaystoneBlockRenderer());
-    }
-
-    @Override
-    public void init(FMLInitializationEvent event) {
-        Waystones.varInstanceClient.initHook();
     }
 
     @SubscribeEvent
