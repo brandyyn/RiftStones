@@ -22,7 +22,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = Waystones.MODID, name = "Waystones-X", guiFactory = "net.blay09.mods.waystones.client.gui.GuiFactory")
+@Mod(modid = Waystones.MODID, name = "RiftStones", guiFactory = "net.blay09.mods.waystones.client.gui.GuiFactory")
 @SuppressWarnings("unused")
 public class Waystones {
 
@@ -63,6 +63,7 @@ public class Waystones {
         configuration = new Configuration(event.getSuggestedConfigurationFile());
         config = new WaystoneConfig();
         config.reloadLocal(configuration);
+        blockWaystone.setLightLevel(WaystoneConfig.waystoneLightLevel);
         WaystoneConfig.setConfig(configuration);
         if (configuration.hasChanged()) {
             configuration.save();

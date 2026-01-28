@@ -176,4 +176,14 @@ public class GuiWarpStone extends GuiScreen {
         }
     }
 
+
+@Override
+protected void keyTyped(char typedChar, int keyCode) {
+    if (keyCode == mc.gameSettings.keyBindInventory.getKeyCode()) {
+        mc.thePlayer.closeScreen();
+        return;
+    }
+    super.keyTyped(typedChar, keyCode);
+}
+
 }

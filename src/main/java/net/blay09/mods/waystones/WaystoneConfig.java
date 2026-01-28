@@ -16,6 +16,9 @@ public class WaystoneConfig {
     public static int teleportButtonY;
     public static boolean disableParticles;
     public static boolean disableTextGlow;
+    public static float waystoneLightLevel;
+    public static boolean disableWaystoneDrops;
+
 
     public boolean teleportButton;
     public int teleportButtonCooldown;
@@ -177,6 +180,20 @@ public class WaystoneConfig {
             true,
             "If true, village Waystones will take their name from Village Names.");
 
+        waystoneLightLevel = config.getFloat(
+            "Waystone Light Level",
+            Categories.general,
+            0.5f,
+            0f,
+            1f,
+            "Light level emitted by waystones. 0 = none, 1 = maximum.");
+
+        disableWaystoneDrops = config.getBoolean(
+            "Disable Waystone Drops",
+            Categories.general,
+            false,
+            "If true, waystones will not drop as an item when mined (including Silk Touch).");
+
         xpBaseCost = config.getInt(
             "Teleport Base XP Cost",
             Categories.general,
@@ -246,6 +263,8 @@ public class WaystoneConfig {
         config.xpBaseCost = buf.readInt();
         config.xpBlocksPerLevel = buf.readInt();
         config.xpCrossDimCost = buf.readInt();
+        config.waystoneLightLevel = buf.readFloat();
+        config.disableWaystoneDrops = buf.readBoolean();
         return config;
     }
 
@@ -264,6 +283,8 @@ public class WaystoneConfig {
         buf.writeInt(xpBaseCost);
         buf.writeInt(xpBlocksPerLevel);
         buf.writeInt(xpCrossDimCost);
+        buf.writeFloat(waystoneLightLevel);
+        buf.writeBoolean(disableWaystoneDrops);
     }
 
     public static Configuration getRawConfig() {

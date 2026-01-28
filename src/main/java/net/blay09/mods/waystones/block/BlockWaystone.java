@@ -32,6 +32,7 @@ public class BlockWaystone extends BlockContainer {
         setBlockName(Waystones.MODID + ":waystone");
         setHardness(5f);
         setResistance(2000f);
+        setLightLevel(0.5F);
         setCreativeTab(CreativeTabs.tabDecorations);
     }
 
@@ -92,6 +93,13 @@ public class BlockWaystone extends BlockContainer {
     }
 
     @Override
+    public void dropBlockAsItemWithChance(World world, int x, int y, int z, int meta, float chance, int fortune) {
+        if (WaystoneConfig.disableWaystoneDrops) {
+         return;
+        }
+        super.dropBlockAsItemWithChance(world, x, y, z, meta, chance, fortune);
+    }
+
     public void breakBlock(World world, int x, int y, int z, Block block, int metadata) {
         TileWaystone tileWaystone = getTileWaystone(world, x, y, z);
         if (tileWaystone != null) {

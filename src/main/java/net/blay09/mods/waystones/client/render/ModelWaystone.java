@@ -3,6 +3,8 @@ package net.blay09.mods.waystones.client.render;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 
+import org.lwjgl.opengl.GL11;
+
 public class ModelWaystone extends ModelBase {
 
     private ModelRenderer top;
@@ -59,4 +61,46 @@ public class ModelWaystone extends ModelBase {
         float f = 0.0625f;
         pillar.render(f);
     }
+
+    public void renderAllWithStaticAo() {
+        float f = 0.0625f;
+
+        // Top details (brighter)
+        GL11.glColor4f(0.95f, 0.95f, 0.95f, 1f);
+        top.render(f);
+
+        GL11.glColor4f(0.90f, 0.90f, 0.90f, 1f);
+        topMidTop.render(f);
+
+        GL11.glColor4f(0.85f, 0.85f, 0.85f, 1f);
+        topMidBottom.render(f);
+
+        GL11.glColor4f(0.82f, 0.82f, 0.82f, 1f);
+        topBottom.render(f);
+
+        // Pillar (mid)
+        GL11.glColor4f(0.78f, 0.78f, 0.78f, 1f);
+        pillar.render(f);
+
+        // Base (darker)
+        GL11.glColor4f(0.75f, 0.75f, 0.75f, 1f);
+        baseTop.render(f);
+
+        GL11.glColor4f(0.70f, 0.70f, 0.70f, 1f);
+        baseMid.render(f);
+
+        GL11.glColor4f(0.65f, 0.65f, 0.65f, 1f);
+        baseBottom.render(f);
+
+        // Reset
+        GL11.glColor4f(1f, 1f, 1f, 1f);
+    }
+
+    public void renderPillarWithStaticAo(float shade) {
+        float f = 0.0625f;
+        GL11.glColor4f(shade, shade, shade, 1f);
+        pillar.render(f);
+        GL11.glColor4f(1f, 1f, 1f, 1f);
+    }
+
 }
