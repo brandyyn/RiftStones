@@ -123,11 +123,10 @@ private static void setupWorldFixedItemLighting() {
             ? WaystoneManager.getRotationYaw(ForgeDirection.getOrientation(tileEntity.getBlockMetadata()))
             : 0f;
 
-// Snapshot render state that affects lighting (prevents permanent brightness/texture-unit drift)
-final int prevActiveTex = GL11.glGetInteger(GL13.GL_ACTIVE_TEXTURE);
 final float prevBrightX = OpenGlHelper.lastBrightnessX;
 final float prevBrightY = OpenGlHelper.lastBrightnessY;
 
+GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS);
 GL11.glPushMatrix();
 try {
     // Apply world lighting for this tile (so it doesn't become too bright/dim incorrectly)
@@ -167,19 +166,16 @@ try {
 
         // Render nonactive pillar (static shading)
         bindTexture(textureNonActive);
-            model.renderPillarWithStaticAo(0.78f);
+        model.renderPillarWithStaticAo(0.78f);
 
-        // Render active pillar with glow (lighting off)
-        boolean glowPass = false;
+        // Render active pillar with glow
         if (!WaystoneConfig.disableTextGlow) {
-            glowPass = true;
             GL11.glDisable(GL11.GL_LIGHTING);
             Minecraft.getMinecraft().entityRenderer.disableLightmap(0);
         }
         bindTexture(activeTextures[normalizeToFive(getCooldownProgress(tileWaystone))]);
         model.renderPillarWithStaticAo(0.78f);
         if (!WaystoneConfig.disableTextGlow) {
-            // Re-enable lightmap after glow pass to prevent state leaking into world rendering
             Minecraft.getMinecraft().entityRenderer.enableLightmap(0);
         }
 
@@ -188,22 +184,18 @@ try {
 
     GL11.glDisable(GL_BLEND);
 } finally {
-    // Restore GL state that can affect subsequent renders
-    GL11.glDisable(GL11.GL_BLEND);
-    GL11.glEnable(GL11.GL_CULL_FACE);
-    GL11.glEnable(GL11.GL_LIGHTING);
-    RenderHelper.enableStandardItemLighting();
-    GL11.glColor4f(1f, 1f, 1f, 1f);
-
-    // Always re-enable lightmap (TESR glow paths may disable it)
     Minecraft.getMinecraft().entityRenderer.enableLightmap(0);
 
-    // Restore lightmap coords and active texture unit
     OpenGlHelper.setActiveTexture(OpenGlHelper.lightmapTexUnit);
     GL11.glEnable(GL11.GL_TEXTURE_2D);
     OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, prevBrightX, prevBrightY);
-    OpenGlHelper.setActiveTexture(prevActiveTex);
+
+    OpenGlHelper.setActiveTexture(OpenGlHelper.defaultTexUnit);
+    GL11.glEnable(GL11.GL_TEXTURE_2D);
+    GL11.glColor4f(1f, 1f, 1f, 1f);
+
     GL11.glPopMatrix();
+    GL11.glPopAttrib();
 }
 
         if (WaystoneConfig.showNametag && tileWaystone.hasWorldObj() && stoneIsKnown) {
